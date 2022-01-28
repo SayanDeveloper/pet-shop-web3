@@ -24,6 +24,15 @@ App = {
   },
 
   initWeb3: async function() {
+    if (window.ethereum) {
+      try {
+        let acc = await window.ethereum.send("eth_requestAccounts");
+        web3 = new Web3(window.ethereum);
+      } catch(err) 
+      {
+        console.log(err.message);
+      }
+    }
     if (typeof web3 !== undefined) {
       App.web3Provider = web3.currentProvider;
     } else {
